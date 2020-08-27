@@ -38,3 +38,12 @@ exports.validateLoginData = data => {
 
     if(Object.keys(errors).length > 0) return res.status(400).json(errors);
 }
+
+exports.reduceUserDetails = data => {
+    let userDetails = {};
+
+    if(!isEmpty(data.bio.trim())) userDetails.bio = data.bio;
+    if(!isEmpty(data.location.trim())) userDetails.location = data.location;
+
+    return userDetails;
+}

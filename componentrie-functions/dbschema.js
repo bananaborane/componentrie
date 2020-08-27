@@ -1,4 +1,14 @@
-let db = [
+let db = {
+    users: [
+        {
+            userId: 'userId',
+            email: 'user@email.com',
+            handle: 'userhandle',
+            imageUrl: 'aflksdjg.png',
+            bio: 'hello this is my bio',
+            location: 'Newark, NJ'
+        }
+    ],
     listings: [
         {
             userHandle: 'user',
@@ -9,4 +19,4 @@ let db = [
 
         }
     ]
-]
+}

@@ -5,7 +5,7 @@ const app = require('express')();
 const FBAuth = require('./util/fbAuth')
 
 const { getAllListings, postOneListing } = require('./handlers/listings')
-const { signup, login } = require('./handlers/users')
+const { signup, login, uploadUserImage, addUserDetails, getAuthenticatedUser } = require('./handlers/users')
 
 
 
@@ -20,6 +20,9 @@ app.post('/listing', FBAuth, postOneListing)
 
 app.post('/signup', signup)
 app.post('/login', login)
+app.post('/user/image', FBAuth, uploadUserImage)
+app.post('/user/details', FBAuth, addUserDetails)
+app.get('/user', FBAuth, getAuthenticatedUser)
 
 
 
