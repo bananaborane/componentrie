@@ -47,9 +47,9 @@ exports.api = functions.https.onRequest(app);
 
 exports.createNotificationOnWatch = functions.firestore.document('watches/{id}')
     .onCreate(snapshot => {
-        db.doc(`/listings${snapshot.data().listingId}`).get()
+        return db.doc(`/listings${snapshot.data().listingId}`).get()
             .then(doc => {
-                if(doc.exists) {
+                if(doc.exists && doc.data().userId !==  snapshot.data().userId) {
                     return db.doc(`/notifications/${snapshot.id}`).set({
                     createdAt: new Date().toISOString(),
                     recipient: doc.data().userHandle,
@@ -61,23 +61,16 @@ exports.createNotificationOnWatch = functions.firestore.document('watches/{id}')
                 }
 
             })
-            .then(() => {
-                return;
-            })
             .catch(err => {
                 console.error(err)
-                return;
             })
     })
 
 
 exports.deleteNotificationOnUnwatch = functions.firestore.document('watches/{id}')
     .onDelete(snapshot => {
-        db.doc(`/notifications/${snapshot.id}`)
+        return db.doc(`/notifications/${snapshot.id}`)
             .delete()
-            .then(() => {
-                return;
-            })
             .catch(err => {
                 console.error(err)
                 return;
@@ -88,9 +81,9 @@ exports.deleteNotificationOnUnwatch = functions.firestore.document('watches/{id}
 
 exports.createNotificationOnMessage = functions.firestore.document('messages/{id}')
     .onCreate(snapshot => {
-        db.doc(`/listings${snapshot.data().listingId}`).get()
+        return db.doc(`/listings${snapshot.data().listingId}`).get()
             .then(doc => {
-                if(doc.exists) {
+                if(doc.exists && doc.data().userId !==  snapshot.data().userId) {
                     return db.doc(`/notifications/${snapshot.id}`).set({
                     createdAt: new Date().toISOString(),
                     recipient: doc.data().userHandle,
@@ -101,9 +94,6 @@ exports.createNotificationOnMessage = functions.firestore.document('messages/{id
                     })
                 }
 
-            })
-            .then(() => {
-                return;
             })
             .catch(err => {
                 console.error(err)

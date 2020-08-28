@@ -9,7 +9,8 @@ exports.getAllListings = (req, res) => {
                     listingId: doc.id,
                     body: doc.data().body,
                     userHandle: doc.data().userHandle,
-                    createdAt: doc.data().createdAt
+                    createdAt: doc.data().createdAt,
+                    userImage: doc.data().userImage
                 });
             })
             return res.json(listings);
@@ -68,7 +69,7 @@ exports.getMessagesForListing = (req, res) => {
 
 
 exports.messageOnListing = (req, res) => {
-    if(req.body.body.trim() === '') return res.status(400).json({ error: 'Must not be empty' })
+    if(req.body.body.trim() === '') return res.status(400).json({ comment: 'Must not be empty' })
     
     // db.collection('inquiries').where('userId', '==', 'req.user.userId').where('listingId', '==', 'req.body.listingId').get()
     //     .then()
