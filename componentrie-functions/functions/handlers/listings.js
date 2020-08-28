@@ -16,7 +16,7 @@ exports.getAllListings = (req, res) => {
         })
         .catch(err => {
             console.error(err)
-            res.status(500).json({ error: err.code }))
+            res.status(500).json({ error: err.code, message: 'Something went wrong while getting all listings' }))
         })
 }
 
@@ -24,14 +24,176 @@ exports.postOneListing = (req, res) => {
     const newListing = {
         body: req.body.body,
         userHandle: req.user.handle,
-        createdAt: new Date().toISOString()
+        userImage: req.user.imageUrl,
+        createdAt: new Date().toISOString(),
+        watchCount: 0,
     };
     db.collection('listings').add(newListing)
         .then(doc =>{
-            res.json({ message: `document ${doc.id} created successfully` })
+            const resListing = newListing;
+            resListing.listingId = doc.id;
+            // res.json({ message: `document ${doc.id} created successfully` })
+            res.json(resListing)
         })
         .catch(err => {
             res.status(500).json({ error: 'Something went wrong while creating an listing' })
             console.error(err);
         })
 }
+
+exports.getListing = (req, res) => {
+    let listingData = {};
+    db.doc(`/listings/${req.params.listingId}`).get()
+        .then(doc => {
+            if(!doc.exists){
+                return res.status(404).json({ error: 'Listing not found' })
+            }
+            listingData = doc.data();
+            listingData.listingId = doc.id;
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({ error: err.code, message: 'Something went wrong while getting a listing' })
+        })
+}
+
+
+
+
+
+exports.getMessagesForListing = (req, res) => {
+
+}
+
+
+
+exports.messageOnListing = (req, res) => {
+    if(req.body.body.trim() === '') return res.status(400).json({ error: 'Must not be empty' })
+    
+    // db.collection('inquiries').where('userId', '==', 'req.user.userId').where('listingId', '==', 'req.body.listingId').get()
+    //     .then()
+    //     .catch()
+    
+    const newInquiry = {
+        body: req.body.body,
+        createdAt: new Date().toISOString(),
+        listingId: req.params.listingId,
+        userHandle: req.user.handle,
+        userImage: req.user.imageUrl
+    };
+
+    db.doc(`/listing${req.params.listingId}`).get()
+        .then(doc => {
+            if(!doc.exists){
+                return res.status(404).json({ error: 'Listing not found' })
+            }
+            return db.collection
+        })
+}
+
+
+// Watch a listing
+exports.watchListing = (req, res) => {
+    const watchDocument = db.collection('watches').where('userHandle', '==', req.user.handle).where('listingId', '==', req.params.listingId).limit(1);
+
+    const listingDocument = db.doc(`/listings/${req.params.listingId}`);
+
+    let listingData = {}
+
+    listingDocument.get()
+        .then(doc => {
+            if(doc.exists){
+                listingData = doc.data();
+                listingData.listingId = doc.id;
+                return likeDocument.get();
+            } else {
+                return res.status(404).json({ error: 'Listing not found' })
+            }
+        })
+        .then(data => {
+            if(data.empty){
+                return db.collection('watches').add({
+                    listingId: req.params.listingId,
+                    userHandle: req.user.handle
+                })
+                .then(() => {
+                    listingData.watchCount++;
+                    return listingDocument.update({ watchCount: listingData.watchCount })
+                })
+                .then(() => {
+                    return res.json(listingData)
+                })
+            } else {
+                return res.status(400).json({ error: 'Listing already watching' })
+            }
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500).json({ error: err.code, message: 'Something went wrong while watching a listing' })
+        })
+}
+
+exports.unwatchListing = (req, res) => {
+    const watchDocument = db.collection('watches').where('userHandle', '==', req.user.handle).where('listingId', '==', req.params.listingId).limit(1);
+
+    const listingDocument = db.doc(`/listings/${req.params.listingId}`);
+
+    let listingData = {}
+
+    listingDocument.get()
+        .then(doc => {
+            if(doc.exists){
+                listingData = doc.data();
+                listingData.listingId = doc.id;
+                return likeDocument.get();
+            } else {
+                return res.status(404).json({ error: 'Listing not found' })
+            }
+        })
+        .then(data => {
+            if(data.empty){
+                return res.status(400).json({ error: 'Listing not watching' })
+
+            } else {
+                return db.doc(`/watches/${data.doc[0].id}`).delete()
+                    .then(() => {
+                        listingData.watchCount--;
+                        return listingDocument.update({ watchCount: listingData.watchCount })
+                    })
+                    .then(() => {
+                        res.json(listingData)
+                    })
+                    
+            }
+        })
+        .catch(err => {
+            console.error(err)
+            res.status(500).json({ error: err.code, message: 'Something went wrong while watching a listing' })
+        })
+}
+
+
+
+// Delete a listing
+exports.deleteListing = (req, res) => {
+    const listingDocument = db.doc(`/listings/${req.params.listingId}`);
+    listingDocument.get()
+        .then(doc => {
+            if(!doc.exists) return res.status(404).json({ error: 'Listing not found' })
+            if(doc.data().userHandle !== req.user.handle){
+                return res.status(403).json({ error: 'Not authorized to delete listing' })
+            }
+            else {
+                return listingDocument.delete();
+            }
+        })
+        .then(() => {
+            res.json({ message:'Listing deleted successfully' })
+        })
+        .catch(err => {
+            console.error(err)
+            return res.status(500).json({ error: err.code, message: 'Something went wrong while deleting a listing' })
+        })
+}
+
+

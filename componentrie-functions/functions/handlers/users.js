@@ -83,7 +83,7 @@ exports.login = (req, res) => {
         .catch(err => {
             console.error(err)
             if (err.code === 'auth/wrong-password'){
-                return res.status(403).json({ general: 'Wrong credentials, please try again' })
+                return res.status(403).json({ message: 'Wrong credentials, please try again' })
             } else {
                 return res.status(500).json({ error: err.code, message: 'Something went wrong while logging in' })
             }
@@ -104,6 +104,37 @@ exports.addUserDetails = (req, res) => {
         })
 }
 
+// Get any user's details
+exports.getUserDetails = (req, res) => {
+    let userDetails = {}
+    db.doc(`/users/${req.params.handle}`).get()
+        .then(doc => {
+            if(doc.exists){
+                userData.user = doc.data()
+                return db.collection('listings').where('userHandle', '==', req.params.handle).orderBy('createdAt', 'desc').get()
+            } else {
+                return res.status(404).json({ error: 'User not found' })
+            }
+        })
+        .then(data => {
+            userData.listings = [];
+            data.forEach(doc => {
+                userData.listings.push({
+                    title: doc.data().title,
+                    userHandle: doc.data().userHandle,
+                    userImage: doc.data().userImage,
+                    watchCount: doc.data().watchCount,
+                    listingId: doc.id
+                })
+            })
+            return res.json(userData)
+        })
+        catch(err => {
+            console.error(err)
+            return res.status(500).json({ error: err.code, message: "Something went wrong while getting any user's details" })
+        })
+}
+
 
 // Get own user details
 exports.getAuthenticatedUser = (req, res) => {
@@ -116,10 +147,25 @@ exports.getAuthenticatedUser = (req, res) => {
             }
         })
         .then(data => {
-            userData.favorites [];
+            userData.favorites = [];
             data.forEach(doc => {
                 userData.favorites.push(doc.data())
             });
+            return db.collection('notifications').where('recipient', '==', req.user.handle).orderBy('createdAt', 'desc').limit(10).get()
+        })
+        .then(data => {
+            userData.notifications = []
+            data.forEach(doc => {
+                userData.notifications.push({
+                    recipient: doc.data().recipient,
+                    sender: doc.data().sender,
+                    createdAt: doc.data().createdAt,
+                    listingId: doc.data().listingId,
+                    type: doc.data().type,
+                    read: doc.data().read,
+                    notificationId: doc.id
+                })
+            })
             return res.json(userData)
         })
         .catch(err => {
@@ -156,7 +202,7 @@ exports.uploadUserImage = (req, res) => {
         file.pipe(fs.createWriteStream(filepath))
     });
     busboy.on('finish', () => {
-        admin.storage().bucket().upload(imageToBeUploaded.filepath, {
+        admin.storage().bucket(config.storageBucket).upload(imageToBeUploaded.filepath, {
             resumable: false,
             metadata: {
                 metadata: {
@@ -173,8 +219,29 @@ exports.uploadUserImage = (req, res) => {
         })
         .catch(err => {
             console.error(err);
-            return res.status(500).json({ error: err.code, message: 'Sometinng wrong happened while uploading user image' })
+            return res.status(500).json({ error: err.code, message: 'Something wrong happened while uploading user image' })
         })
     })
     busboy.end(req.rawBody)
 }
+
+
+
+
+exports.markNotificationsRead = (req, res) => {
+    let batch = db.batch()
+    req.body.forEach(notificationId => {
+        const notification = db.doc(`/notifications/${notificationId}`)
+        batch.update(notification, { read: true })
+    })
+    batch.commit()
+        .then(() => {
+            return res.json({ message: 'Notifications marked read' })
+        })
+        .catch(err => {
+            console.error(err)
+            return res.status(500).json({ error: err.code, message: 'Something went wrong while marking notifications read' })
+        })
+}
+
+

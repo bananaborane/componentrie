@@ -18,5 +18,23 @@ let db = {
         { 
 
         }
+    ],
+    inquiries: [
+        {
+            inquiryId: '123',
+            listingId: 'asdf',
+            listerId: 'asdf',
+            userId: 'fdsa'
+        }
+    ],
+    notifications: [
+        {
+            recipient: 'user',
+            sender: 'john',
+            read: 'true | false',
+            listingId: 'aasdfasdf',
+            type: 'watch | message',
+            createdAt: 'askdjghsdfklghjsdlf'
+        }
     ]
 }

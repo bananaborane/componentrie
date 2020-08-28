@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
         idToken = req.headers.authorization.split('Bearer ')[1];
     } else {
         console.error('No token found')
-        return res.status(403).json({ error: 'Unauthorized' })
+        return res.status(403).json({ error: 'Unauthorized', message: 'Auth token needed' })
     }
 
     admin.auth().verifyIdToken(idToken)
@@ -17,6 +17,8 @@ module.exports = (req, res, next) => {
         })
         .then(data => {
             req.user.handle = data.docs[0].data().handle;
+            req.user.imageUrl = data.docs[0].data().imageUrl;
+            req.user.userId = data.docs[0].data().uid
             return next();
         })
         .catch(err => {
