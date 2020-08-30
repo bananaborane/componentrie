@@ -19,20 +19,12 @@ exports.signup = (req, res) => {
 
     if(!valid) return res.status(400).json(errors);
 
-    const noImg = 'no-img.png'
-
 
     let token, userId;
-    db.doc(`/users/${newUser.handle}`).get()
-        .then(doc => {
-            if (doc.exists){
-                return res.status(400).json({ handle: 'This handle is already taken' })
-            } else {
-                return firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
-            }
-        })
+    
+    firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password)
         .then(data => {
-            userId = data.user.uid;
+            userId = data.user.uid
             return data.user.getIdToken();
         })
         .then(idToken => {
@@ -40,11 +32,11 @@ exports.signup = (req, res) => {
             const userCredentials = {
                 handle: newUser.handle,
                 email: newUser.email,
-                createdAt: new Date().toISOString(),
-                imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
-                userId: userId
+                userId: userId,
+                createdAt: new Date().toISOString(), 
+                imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/no-img.png?alt=media`
             }
-            return db.doc(`/users/${newUser.handle}`).set(userCredentials);
+            return db.doc(`/users/${userId}`).set(userCredentials);
         })
         .then(() => {
             return res.status(201).json({ token: token })
@@ -67,7 +59,7 @@ exports.login = (req, res) => {
         password: req.body.password
     };
 
-    const { valid, errors } = validateLoginpData(user)
+    const { valid, errors } = validateLoginData(user)
 
     if(!valid) return res.status(400).json(errors);
 
