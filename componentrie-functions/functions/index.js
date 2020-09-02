@@ -5,7 +5,7 @@ const app = require('express')();
 const FBAuth = require('./util/fbAuth')
 const { db } = require('./util/admin')
 
-const { getAllListings, postOneListing, getListing, getMessagesForListing, messageOnListing, watchListing, unwatchListing, deleteListing } = require('./handlers/listings')
+const { getAllListings, postOneListing, getListing, getMessagesForListing, messageOnListing, watchListing, unwatchListing, deleteListing, postListingImage } = require('./handlers/listings')
 const { signup, login, uploadUserImage, addUserDetails, getAuthenticatedUser, getUserDetails, markNotificationsRead } = require('./handlers/users')
 
 
@@ -14,13 +14,13 @@ const { signup, login, uploadUserImage, addUserDetails, getAuthenticatedUser, ge
 
 app.get('/listings', getAllListings)
 app.post('/listing', FBAuth, postOneListing)
+app.post('/listing/:listingId/image', FBAuth, postListingImage)
 app.get('/listing/:listingId', getListing);
 app.get('/listing/messages', FBAuth, getMessagesForListing)
 app.post('/listing/:listingId/inquire', FBAuth, messageOnListing)
 app.get('/listing/:listingId/watch', FBAuth, watchListing)
 app.get('/listing/:listingId/unwatch', FBAuth, unwatchListing)
 app.delete('/listing/:listingId', FBAuth, deleteListing);
-
 // TODO: delete a listing, watch a listing, unwatch a listing
 
 
