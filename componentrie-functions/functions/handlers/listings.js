@@ -30,6 +30,7 @@ exports.postOneListing = (req, res) => {
         userImage: req.user.imageUrl,
         createdAt: new Date().toISOString(),
         watchCount: 0,
+        inquiryCount: 0,
     };
     db.collection('listings').add(newListing)
         .then(doc =>{
@@ -79,14 +80,14 @@ exports.postListingImage = (req, res) => {
         })
         .then(() => {
             const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`
-            return db.doc(`/users/${req.user.userId}`).update({ imageUrl: imageUrl })
+            return db.doc(`/listings/${req.params.listingId}`).update({ listingImages: [ imageUrl, ...listingImages ] })
         })
         .then(() => {
-            return res.json({ message: 'Image uploaded successfully' })
+            return res.json({ message: 'Listing image uploaded successfully' })
         })
         .catch(err => {
             console.error(err);
-            return res.status(500).json({ error: err.code, message: 'Something wrong happened while uploading user image' })
+            return res.status(500).json({ error: err.code, message: 'Something wrong happened while uploading listing image' })
         })
     })
     busboy.end(req.rawBody)
