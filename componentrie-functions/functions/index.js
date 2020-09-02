@@ -31,7 +31,7 @@ app.post('/login', login)
 app.post('/user/image', FBAuth, uploadUserImage)
 app.post('/user/details', FBAuth, addUserDetails)
 app.get('/user', FBAuth, getAuthenticatedUser)
-app.get('/user/:handle', getUserDetails);
+app.get('/user/:userId', getUserDetails);
 app.post('/notifications', FBAuth, markNotificationsRead)
 
 

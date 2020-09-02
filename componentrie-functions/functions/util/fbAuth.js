@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     admin.auth().verifyIdToken(idToken)
         .then(decodedToken => {
             req.user = decodedToken;
-            console.log('line 15 from FbAuth.js', decodedToken)
+            console.log('line 15 from FbAuth.js', '\n', decodedToken, '\n')
             return db.collection('users').where('userId', '==', req.user.uid).limit(1).get()
         })
         .then(data => {

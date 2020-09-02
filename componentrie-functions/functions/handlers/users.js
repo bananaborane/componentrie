@@ -99,11 +99,11 @@ exports.addUserDetails = (req, res) => {
 // Get any user's details
 exports.getUserDetails = (req, res) => {
     let userDetails = {}
-    db.doc(`/users/${req.params.handle}`).get()
+    db.doc(`/users/${req.params.userId}`).get()
         .then(doc => {
             if(doc.exists){
                 userData.user = doc.data()
-                return db.collection('listings').where('userHandle', '==', req.params.handle).orderBy('createdAt', 'desc').get()
+                return db.collection('listings').where('userId', '==', req.params.userId).orderBy('createdAt', 'desc').get()
             } else {
                 return res.status(404).json({ error: 'User not found' })
             }
@@ -113,6 +113,8 @@ exports.getUserDetails = (req, res) => {
             data.forEach(doc => {
                 userData.listings.push({
                     title: doc.data().title,
+                    body: doc.data().body,
+                    askingPrice: doc.data().askingPrice,
                     userHandle: doc.data().userHandle,
                     userImage: doc.data().userImage,
                     watchCount: doc.data().watchCount,
@@ -121,7 +123,7 @@ exports.getUserDetails = (req, res) => {
             })
             return res.json(userData)
         })
-        catch(err => {
+        .catch(err => {
             console.error(err)
             return res.status(500).json({ error: err.code, message: "Something went wrong while getting any user's details" })
         })
@@ -182,14 +184,15 @@ exports.uploadUserImage = (req, res) => {
 
     busboy.on('file', (fieldName, file, filename, encoding, mimetype) => {
         console.log(fieldname, filename, mimetype)
-        if(mimetype !== 'image/jpeg' && mimetype !== 'image/png'){
-            return res.status(400).json({ message: 'Wrong file type submitted' })
+        if(mimetype !== 'image/jpeg'){
+            if (mimetype !== 'image/png') return res.status(400).json({ message: 'Wrong file type submitted' })
         }
 
         // image.png
         const imageExtension = filename.split('.')[filename.split('.').length - 1]
+        // 52357487452345.png
         imageFileName = `${Math.round(Math.random() * 1000000)}.${imageExtension}`
-        const filepath = path.json(os.tmpdir(), imageFileName);
+        const filepath = path.join(os.tmpdir(), imageFileName);
         imageToBeUploaded = { filepath: filepath, mimetype: mimetype }
         file.pipe(fs.createWriteStream(filepath))
     });

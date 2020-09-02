@@ -11,6 +11,11 @@ let db = {
     ],
     listings: [
         {
+            title: 'this is the listing title',
+            body: 'this is the listing body',
+            askingPrice: 5,
+            inquiryCount: 0,
+            watchCount: 0,
             userHandle: 'user',
             body: 'this is the body', 
             createdAt: 'new date here'
