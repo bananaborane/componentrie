@@ -24,7 +24,22 @@ let db = {
             inquiryId: '123',
             listingId: 'asdf',
             listerId: 'asdf',
-            userId: 'fdsa'
+            userId: 'fdsa',
+            createdAt: '2019-11-03T22:30:11.492Z'
+        }
+    ],
+    messages: [
+        {
+            messageId: 'asdfjklasdf',
+            inquiryId: '123',
+            listingId: 'asdf',
+            listerId: 'asdf',
+            userId: 'fdsa',
+            createdAt: '2019-11-03T22:30:11.492Z'
+
+        }, 
+        {
+
         }
     ],
     notifications: [

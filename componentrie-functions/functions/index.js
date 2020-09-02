@@ -10,7 +10,6 @@ const { signup, login, uploadUserImage, addUserDetails, getAuthenticatedUser, ge
 
 
 
-
 // Listing routes
 
 app.get('/listings', getAllListings)
