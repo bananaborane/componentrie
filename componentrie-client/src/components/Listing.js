@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'react-router-dom/Link'
 
 
 // MUI Imports
@@ -11,17 +12,25 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = {
     card: {
-        display: 'flex'
+        display: 'flex',
+        marginBottom: 20
+    },
+    image: {
+        minWidth: 200
+    },
+    content: {
+        padding: 25,
+        objectFit: 'cover'
     }
 }
 
 function Listing(props) {
     const { classes, listing } = this.props;
     return (
-        <Card>
-            <CardMedia image={listing..userImage} title='Profile image' />
-            <CardContent>
-                <Typography variant="h5">{listing.userHandle}</Typography>
+        <Card className={classes.card}>
+            <CardMedia image={listing.userImage} title='Profile image' className={classes.image}/>
+            <CardContent class={classes.content}>
+                <Typography variant="h5" component={Link} to={`/users/${listing.userHandle}`} color='primary'>{listing.userHandle}</Typography>
                 <Typography variant="body2" color='textSecondary'>{listing.createdAt}</Typography>
                 <Typography variant="body1">{listing.body}</Typography>
             </CardContent>
