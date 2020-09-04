@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 
 
 // MUI Imports
@@ -29,7 +29,7 @@ function Listing(props) {
     return (
         <Card className={classes.card}>
             <CardMedia image={listing.userImage} title='Profile image' className={classes.image}/>
-            <CardContent class={classes.content}>
+            <CardContent className={classes.content}>
                 <Typography variant="h5" component={Link} to={`/users/${listing.userHandle}`} color='primary'>{listing.userHandle}</Typography>
                 <Typography variant="body2" color='textSecondary'>{listing.createdAt}</Typography>
                 <Typography variant="body1">{listing.body}</Typography>

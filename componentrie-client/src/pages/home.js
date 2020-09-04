@@ -17,7 +17,7 @@ export default function home() {
     }, [])
 
     const recentListingsMarkup = listings.length ? (listings.map(listing => {
-    return (<Listing listing={listing} />)
+    return (<Listing key={listing.listingId} listing={listing} />)
     })) : (<p>Loading...</p>)
 
 
