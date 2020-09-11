@@ -27,7 +27,7 @@ const styles = {
 }
 
 function Listing(props) {
-    const { classes, listing } = this.props;
+    const { classes, listing } = props;
     dayjs.extend(relativeTime)
     return (
         <Card className={classes.card}>

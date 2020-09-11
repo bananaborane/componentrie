@@ -5,7 +5,8 @@ const styles = {
 
 }
 
-function login() {
+function login(props) {
+    const { classes } = props
     return (
         <div>
             <h2>Login page</h2>
