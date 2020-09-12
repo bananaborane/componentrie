@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 // MUI imports
@@ -13,9 +13,15 @@ const styles = {
     } 
 }
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+
 function login(props) {
 
     const { classes } = props
+
+
 
     const handleSubmit = function(event){
         console.log('from handleSubmit')
@@ -23,7 +29,7 @@ function login(props) {
 
     return (
         <Grid container className={classes.form}>
-            <Grid item sm/>
+            
             <Grid item sm/>
                 <p>hi mom</p>
                 <Typography variant='h3' className={classes.pageTitle}>
@@ -35,7 +41,7 @@ function login(props) {
                 </TextField>
                 </form>
             </Grid>
-            <Grid item sm/>
+            
         </Grid>
     )
 }
