@@ -19,7 +19,7 @@ const styles = theme => ({
 function signup(props) {
     
     const { classes } = props
-    const [loginProperties, setLoginProperties] = useState({
+    const [signupProperties, setSignupProperties] = useState({
         email: '',
         password: '',
         confirmPassword: '',
@@ -27,10 +27,10 @@ function signup(props) {
         loading: false,
         errors: {},
     })
-    const { errors, loading } = loginProperties
+    const { errors, loading } = signupProperties
 
     const handleChange = event => {
-        setLoginProperties({ ...loginProperties, [event.target.name]: event.target.value })
+        setSignupProperties({ ...signupProperties, [event.target.name]: event.target.value })
     }
 
 
@@ -38,17 +38,22 @@ function signup(props) {
 
     const handleSubmit = function(event){
         event.preventDefault();
-        setLoginProperties({ ...loginProperties, loading: true });
-        const { username, password, loading } = loginProperties
-        const userData = { username: username, password: password }
-        axios.post('/signup', userData)
+        setSignupProperties({ ...signupProperties, loading: true });
+        const { username, password, confirmPassword } = signupProperties
+        const newUserData = { 
+            username: username, 
+            password: password,
+            confirmPassword: confirmPassword 
+        }
+        axios.post('/signup', newUserData)
             .then(res => {
                 console.log(res.data)
-                setLoginProperties({ ...loginProperties, loading: false })
+                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
+                setSignupProperties({ ...signupProperties, loading: false })
                 props.history.push('/')
             })
             .catch(err => {
-                setLoginProperties({ ...loginProperties, errors: err.response.data, loading: false })
+                setSignupProperties({ ...signupProperties, errors: err.response.data, loading: false })
             })
         
     }
