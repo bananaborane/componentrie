@@ -27,7 +27,7 @@ function signup(props) {
         loading: false,
         errors: {},
     })
-    const { errors, loading } = signupProperties
+    const { email, password, confirmPassword, handle, errors, loading } = signupProperties
 
     const handleChange = event => {
         setSignupProperties({ ...signupProperties, [event.target.name]: event.target.value })
@@ -39,11 +39,12 @@ function signup(props) {
     const handleSubmit = function(event){
         event.preventDefault();
         setSignupProperties({ ...signupProperties, loading: true });
-        const { username, password, confirmPassword } = signupProperties
+        const { username, password, confirmPassword, handle } = signupProperties
         const newUserData = { 
             username: username, 
             password: password,
-            confirmPassword: confirmPassword 
+            confirmPassword: confirmPassword,
+            handle: handle
         }
         axios.post('/signup', newUserData)
             .then(res => {
@@ -64,26 +65,32 @@ function signup(props) {
             <Grid item sm/>
                 <p>hi mom</p>
                 <Typography variant='h3' className={classes.pageTitle}>
-                    Login
+                    Signup
                 </Typography>
                 <form noValidate onSubmit={handleSubmit}>
                     <TextField id='email' name='email' type='email' label='Email' className={classes.textField} helperText={errors.email} error={errors.email ? true : false} value={email} onChange={handleChange} fullWidth />
+
                     <TextField id='password' name='password' type='password' label='Password' className={classes.textField} helperText={errors.password} error={errors.password ? true : false} value={password} onChange={handleChange} fullWidth />
+
+                    <TextField id='confirmPassword' name='confirmPassword' type='password' label='Confirm Password' className={classes.textField} helperText={errors.confirmPassword} error={errors.confirmPassword ? true : false} value={confirmPassword} onChange={handleChange} fullWidth />
+
+                    <TextField id='handle' name='handle' type='text' label='Handle' className={classes.textField} helperText={errors.handle} error={errors.handle ? true : false} value={handle} onChange={handleChange} fullWidth />
+
                     { errors.general && (
                         <Typography variant='body2' className={classes.customError}>
                             {errors.general}
                         </Typography>
                     ) }
                     <Button type='submit' variant='contained' color='primary' className={classes.button} disabled={loading}>
-                        Login
+                        Signup
                         {loading && (
                             <CircularProgress size={30} className={classes.progress} />
                         )}
                     </Button>
                     <br />
                     <small>
-                        Don't have an account? Sign up 
-                        <Link to='/signup'>
+                        Already have an account? Login 
+                        <Link to='/login'>
                             Here
                         </Link>
                     </small>

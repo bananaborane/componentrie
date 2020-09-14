@@ -25,7 +25,8 @@ function login(props) {
         loading: false,
         errors: {},
     })
-    const { errors, loading } = loginProperties
+    const { email, password, handle, errors, loading } = signupProperties
+
 
     const handleChange = event => {
         setLoginProperties({ ...loginProperties, [event.target.name]: event.target.value })
