@@ -4,56 +4,32 @@ import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import { BrowerRouter as Router, Route, Switch } from 'react-router-dom'
+import themeFile from './util/theme'
+import jwtDecode from 'jwt-decode'
 
 //Components
 import Navbar from './components/Navbar'
+import AuthRoute from './util/AuthRoute'
 
 // Pages
 import home from './pages/home'
 import login from './pages/login'
 import signup from './pages/signup'
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#82e9de',
-      main: '#4db6ac',
-      dark: '#00867d',
-      contrastText: '#fff'
-    },
-    secondary: {
-      light: '#82e9de',
-      main: '#4db6ac',
-      dark: '#00867d',
-      contrastText: '#fff'
-    }
+const theme = createMuiTheme(themeFile)
 
-  },
-  typography: {
-    useNextVariants: true
-  },
-  form: {
-    textAlign: 'center'
-  },
-  pageTitle: {
-      margin: '10px auto 10px auto'
-  },
-  textField: {
-      margin: '10px auto 10px auto'
-  },
-  button: {
-      marginTop: 20,
-      position: 'relative'
-  },
-  customError: {
-      color: 'red',
-      fontSize: '0.8rem',
-      marginTop: 10
-  },
-  progress: {
-      position: 'absolute'
+
+let authenticated;
+const token = localStorage.FBIdToken;
+if (token){
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()){
+    window.location.href = '/login'
+    authenticated = false;
+  } else {
+    authenticated = true;
   }
-})
+}
 
 function App() {
   return (
@@ -64,8 +40,8 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={home} />
-              <Route path="/login" component={login} />
-              <Route path="/signup" component={signup} />
+              <AuthRoute path="/login" component={login} />
+              <AuthRoute path="/signup" component={signup} />
             </Switch>
           </div>
         </Router>
