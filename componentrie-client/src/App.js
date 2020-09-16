@@ -7,6 +7,10 @@ import { BrowerRouter as Router, Route, Switch } from 'react-router-dom'
 import themeFile from './util/theme'
 import jwtDecode from 'jwt-decode'
 
+// Redux
+import { Provider } from 'react-redux';
+import store from './redux/store'
+
 //Components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -34,18 +38,20 @@ if (token){
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <Router>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={home} />
-              <AuthRoute path="/login" component={login} authenticated={authenticated} />
-              <AuthRoute path="/signup" component={signup} authenticated={authenticated} />
-            </Switch>
-          </div>
-        </Router>
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <Router>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <Route exact path="/" component={home} />
+                <AuthRoute path="/login" component={login} authenticated={authenticated} />
+                <AuthRoute path="/signup" component={signup} authenticated={authenticated} />
+              </Switch>
+            </div>
+          </Router>
+        </div>
+      </Provider>
     </MuiThemeProvider>
   );
 }
