@@ -3,7 +3,7 @@ import { SET_USER, SET_ERRORS, CLEAR_ERRORS, LOADING_UI } from '../types'
 
 import axios from 'axios'
 
-export const loginUser = userData => dispatch => {
+export const loginUser = (userData, history) => dispatch => {
     dispatch({ type: LOADING_UI });
     axios.post('/login', userData)
     .then(res => {
@@ -13,10 +13,14 @@ export const loginUser = userData => dispatch => {
         axios.defaults.headers.common['Authorization'] = FBIdToken;
         setLoginProperties({ ...loginProperties, loading: false })
         dispatch(getUserData())
-        props.history.push('/')
-    })
+        dispatch({ type: CLEAR_ERRORS })
+        history.push('/')
+    }) 
     .catch(err => {
-        setLoginProperties({ ...loginProperties, errors: err.response.data, loading: false })
+        dispatch({
+            type: SET_ERRORS,
+            payload: err.response.data
+        })
     })
 }
 
