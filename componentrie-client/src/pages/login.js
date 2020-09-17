@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
@@ -34,6 +34,10 @@ function login(props) {
     })
     const { email, password, handle, errors } = loginProperties
 
+
+    useEffect(() => {
+        console.log(`props.UI.errors has changed`)
+    }, [props.UI.errors]);
 
     const handleChange = event => {
         setLoginProperties({ ...loginProperties, [event.target.name]: event.target.value })
