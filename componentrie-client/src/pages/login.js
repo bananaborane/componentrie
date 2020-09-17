@@ -22,13 +22,17 @@ const styles = theme => ({
 
 function login(props) {
     
-    const { classes } = props
+    // Line below takes loading out from props.UI object
+    const { classes, UI: { loading } } = props
+
+    
     const [loginProperties, setLoginProperties] = useState({
         email: '',
         password: '',
+        handle: '',
         errors: {},
     })
-    const { email, password, handle, errors, loading } = signupProperties
+    const { email, password, handle, errors } = loginProperties
 
 
     const handleChange = event => {
@@ -41,7 +45,10 @@ function login(props) {
     const handleSubmit = function(event){
         event.preventDefault();
         const { username, password } = loginProperties
-        const userData = { username: username, password: password }
+        const userData = { 
+            username: username, 
+            password: password 
+        }
 
         props.loginUser(userData, props.history)
     }
@@ -82,10 +89,10 @@ function login(props) {
     )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
     user: state.user,
     UI: state.UI
-}
+})
 
 const mapActionsToProps = {
     loginUser
