@@ -22,7 +22,6 @@ function login(props) {
     const [loginProperties, setLoginProperties] = useState({
         email: '',
         password: '',
-        loading: false,
         errors: {},
     })
     const { email, password, handle, errors, loading } = signupProperties
@@ -37,19 +36,9 @@ function login(props) {
 
     const handleSubmit = function(event){
         event.preventDefault();
-        setLoginProperties({ ...loginProperties, loading: true });
-        const { username, password, loading } = loginProperties
+        const { username, password } = loginProperties
         const userData = { username: username, password: password }
-        axios.post('/login', userData)
-            .then(res => {
-                console.log(res.data)
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-                setLoginProperties({ ...loginProperties, loading: false })
-                props.history.push('/')
-            })
-            .catch(err => {
-                setLoginProperties({ ...loginProperties, errors: err.response.data, loading: false })
-            })
+
         
     }
 
