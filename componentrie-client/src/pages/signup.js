@@ -22,23 +22,23 @@ const styles = theme => ({
 
 function signup(props) {
     
-    const { classes } = props
+    const { classes, UI: { loading } } = props
     const [signupProperties, setSignupProperties] = useState({
         email: '',
         password: '',
         confirmPassword: '',
         handle: '',
-        loading: false,
         errors: {},
     })
-    const { email, password, confirmPassword, handle, errors, loading } = signupProperties
+    const { email, password, confirmPassword, handle, errors } = signupProperties
 
     const handleChange = event => {
         setSignupProperties({ ...signupProperties, [event.target.name]: event.target.value })
     }
 
-
-
+    useEffect(() => {
+        console.log(`props.UI.errors has changed`)
+    }, [props.UI.errors]);
 
     const handleSubmit = function(event){
         event.preventDefault();
@@ -50,16 +50,7 @@ function signup(props) {
             confirmPassword: confirmPassword,
             handle: handle
         }
-        axios.post('/signup', newUserData)
-            .then(res => {
-                console.log(res.data)
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`)
-                setSignupProperties({ ...signupProperties, loading: false })
-                props.history.push('/')
-            })
-            .catch(err => {
-                setSignupProperties({ ...signupProperties, errors: err.response.data, loading: false })
-            })
+        props.signupUser(newUserData, props.history)
         
     }
 
@@ -110,4 +101,4 @@ const mapStateToProps = state => ({
     UI: state.UI
 })
 
-export default connect(mapStateToProps, { logoutUser })(withStyles(styles)(signup));
+export default connect(mapStateToProps, { signupUser })(withStyles(styles)(signup));
