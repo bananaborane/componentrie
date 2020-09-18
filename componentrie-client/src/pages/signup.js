@@ -10,6 +10,10 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+// Redux imports
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userActions'
+
 
 const styles = theme => ({
     ...theme
@@ -101,4 +105,9 @@ function signup(props) {
     )
 }
 
-export default withStyles(styles)(signup);
+const mapStateToProps = state => ({
+    user: state.user,
+    UI: state.UI
+})
+
+export default connect(mapStateToProps, { logoutUser })(withStyles(styles)(signup));
