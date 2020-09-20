@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 // MUI imports
