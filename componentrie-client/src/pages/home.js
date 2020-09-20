@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import axios from 'axios'
 import Listing from '../components/Listing'
+import Profile from '../components/Profile'
 
 export default function home() {
     const [listings, setListings] = useState([])
@@ -27,7 +28,7 @@ export default function home() {
                 {recentListingsMarkup}
             </Grid>
             <Grid item sm={8} xs={12}>
-                <p>Profile here</p>
+                <Profile />
             </Grid>
         </Grid>
     )
