@@ -5,8 +5,13 @@ import { connect } from 'react-redux'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
 
+const styles = {
+    
+}
 
-function Profile() {
+
+function Profile(props) {
+    const { classes, user: { credentials: { handle, createdAt, imageUrl, bio, website, location }, loading } } = props;
     return (
         <div>
             From Profile.js
