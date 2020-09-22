@@ -17,7 +17,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 // Redux imports
 import { connect } from 'react-redux'
 
-const styles = {
+const styles = theme => ({
     paper: {
       padding: 20
     },
@@ -63,7 +63,7 @@ const styles = {
         margin: '20px 10px'
       }
     }
-  }
+  })
 
 
 function Profile(props) {
@@ -71,8 +71,8 @@ function Profile(props) {
     let profileMarkUp = !loading ? (authenticated ? (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
-                <div className="profile-image">
-                    <img src={imageUrl} alt="profile"/>
+                <div className="image-wrapper">
+                    <img src={imageUrl} alt="profile" className='profile-image' />
                 </div>
                 <hr />
                 <div className="profile-details">
