@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import MuiLink from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import EditIcon from '@material-ui/core/Edit'
 
 import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
@@ -68,11 +70,27 @@ const styles = theme => ({
 
 function Profile(props) {
     const { classes, user: { credentials: { handle, createdAt, imageUrl, bio, website, location }, loading, authenticated } } = props;
+
+  const handleImageChange = event => {
+    const image = event.target.files[0];
+    // send to server
+    
+  }
+
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById('imageInput')
+    fileInput.click();
+  }
+
     let profileMarkUp = !loading ? (authenticated ? (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
                 <div className="image-wrapper">
                     <img src={imageUrl} alt="profile" className='profile-image' />
+                    <input type="file" id='imageInput' hidden='hidden' onChange={handleImageChange(event)} />
+                    <IconButton onClick={this.handleEditPicture} className='button'>
+                      <EditIcon color='primary' />
+                    </IconButton>
                 </div>
                 <hr />
                 <div className="profile-details">
