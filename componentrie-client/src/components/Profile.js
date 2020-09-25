@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import MuiLink from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 import EditIcon from '@material-ui/core/Edit'
 
 import LocationOn from '@material-ui/icons/LocationOn'
@@ -18,6 +19,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 
 // Redux imports
 import { connect } from 'react-redux'
+import { uploadUserImage } from './../redux/actions/userActions'
 
 const styles = theme => ({
     paper: {
@@ -74,11 +76,15 @@ function Profile(props) {
   const handleImageChange = event => {
     const image = event.target.files[0];
     // send to server
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    props.uploadUserImage(formData)
     
   }
 
   const handleEditPicture = () => {
     const fileInput = document.getElementById('imageInput')
+    // vanillajs to propagate another click event
     fileInput.click();
   }
 
@@ -87,10 +93,13 @@ function Profile(props) {
             <div className={classes.profile}>
                 <div className="image-wrapper">
                     <img src={imageUrl} alt="profile" className='profile-image' />
-                    <input type="file" id='imageInput' hidden='hidden' onChange={handleImageChange(event)} />
-                    <IconButton onClick={this.handleEditPicture} className='button'>
-                      <EditIcon color='primary' />
-                    </IconButton>
+                    <input type="file" id='imageInput' hidden='hidden' onChange={handleImageChange} />
+                    
+                    <Tooltip title='Edit profile picture' placement='top'>
+                      <IconButton onClick={this.handleEditPicture} className='button'>
+                        <EditIcon color='primary' />
+                      </IconButton>
+                    </Tooltip>
                 </div>
                 <hr />
                 <div className="profile-details">
