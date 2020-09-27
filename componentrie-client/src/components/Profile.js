@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
+import EditDetails from './EditDetails'
 
 // Material UI imports
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -89,6 +90,10 @@ function Profile(props) {
     fileInput.click();
   }
 
+  const handleLogout = () => {
+    props.logoutUser
+  }
+
     let profileMarkUp = !loading ? (authenticated ? (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
@@ -130,6 +135,8 @@ function Profile(props) {
                         <KeyboardReturn color='primary' />
                       </IconButton>
               </Tooltip>
+
+              <EditDetails />
             </div>
         </Paper>
     ) : (
