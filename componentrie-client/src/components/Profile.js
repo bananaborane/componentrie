@@ -10,8 +10,9 @@ import MuiLink from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
-import EditIcon from '@material-ui/core/Edit'
 
+import EditIcon from '@material-ui/icons/Edit'
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
@@ -19,7 +20,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday'
 
 // Redux imports
 import { connect } from 'react-redux'
-import { logout, uploadUserImage } from './../redux/actions/userActions'
+import { logoutUser, uploadUserImage } from './../redux/actions/userActions'
 
 const styles = theme => ({
     paper: {
@@ -123,6 +124,12 @@ function Profile(props) {
                     <CalendarToday color='primary' />{'  '}
                     <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
                 </div>
+
+              <Tooltip title='Logout' placement='top'>
+                      <IconButton onClick={handleLogout}>
+                        <KeyboardReturn color='primary' />
+                      </IconButton>
+              </Tooltip>
             </div>
         </Paper>
     ) : (
@@ -145,4 +152,6 @@ const mapStateToProps = state => {
     user: state.user
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(Profile))
+const mapActionsToProps = { logoutUser, uploadUserImage }
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Profile))
