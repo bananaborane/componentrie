@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 
 
@@ -10,12 +10,34 @@ const styles = theme => ({
     ...theme
 })
 
-function EditDetails() {
+function EditDetails(props) {
+    const [userDetailsState, setUserDetailsState] = useState({
+        bio: '',
+        website: '',
+        location: '',
+        open: false
+    })  
+
+    useEffect(() => {
+        const { credentials } = props;
+        setUserDetailsState({
+            ...userDetasState,
+            bio: credentials.bio ? credentials.bio : '',
+            website: credentials.website ? credentials.website : '',
+            location: credentials.location ? credentials.location : '',
+        })
+    }, [])
+
+
     return (
-        <div>
+        <>
             
-        </div>
+        </>
     )
 }
 
-export default EditDetails
+const mapStateToProps = state => ({
+    credentials: state.user.credentials
+})
+
+export default connect(mapStateToProps, { editUserDetials })(withStyles(styles)(EditDetails))
