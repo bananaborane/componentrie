@@ -16,7 +16,7 @@ import EditIcon from '@material-ui/icons/Edit'
 
 // Redux imports
 import { connect } from 'react-redux'
-import { editUserDetials } from '../redux/actions/userActions'
+import { editUserDetails } from '../redux/actions/userActions'
 
 const styles = theme => ({
     ...theme
@@ -39,10 +39,18 @@ function EditDetails(props) {
             location: credentials.location ? credentials.location : '',
         })
     }, [])
-
-
-
+    
+    
+    
     const handleOpen = () => {
+        setUserDetailsState({
+            ...userDetasState,
+            open: true
+        })
+
+    }
+
+    const handleClose = () => {
 
     }
 
@@ -52,7 +60,7 @@ function EditDetails(props) {
         <>
             <Tooltip title='Edit details' placement='top'>
                 <IconButton onClick={handleOpen} className={classes.button} >
-
+                    <EditIcon color='primary' />
                 </IconButton>
             </Tooltip>
         </>
@@ -63,4 +71,4 @@ const mapStateToProps = state => ({
     credentials: state.user.credentials
 })
 
-export default connect(mapStateToProps, { editUserDetials })(withStyles(styles)(EditDetails))
+export default connect(mapStateToProps, { editUserDetails })(withStyles(styles)(EditDetails))
