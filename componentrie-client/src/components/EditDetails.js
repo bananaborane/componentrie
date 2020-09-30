@@ -32,26 +32,34 @@ function EditDetails(props) {
 
     useEffect(() => {
         const { credentials } = props;
-        setUserDetailsState({
-            ...userDetasState,
-            bio: credentials.bio ? credentials.bio : '',
-            website: credentials.website ? credentials.website : '',
-            location: credentials.location ? credentials.location : '',
-        })
+        mapUserDetailsToState(credentials)
     }, [])
     
     
     
     const handleOpen = () => {
         setUserDetailsState({
-            ...userDetasState,
+            ...userDetailsState,
             open: true
         })
-
+        mapUserDetailsToState(props.credentials)
+        
     }
-
+    
     const handleClose = () => {
-
+        setUserDetailsState({
+            ...userDetailsState,
+            open: false
+        })
+    }
+    
+    const mapUserDetailsToState = credentials => {
+        setUserDetailsState({
+            ...userDetailsState,
+            bio: credentials.bio ? credentials.bio : '',
+            website: credentials.website ? credentials.website : '',
+            location: credentials.location ? credentials.location : '',
+        })
     }
 
     const { classes } = props;
