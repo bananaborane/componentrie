@@ -52,6 +52,10 @@ function EditDetails(props) {
             open: false
         })
     }
+
+    const handleChange = event => {
+        setLoginProperties({ ...loginProperties, [event.target.name]: event.target.value })
+    }
     
     const mapUserDetailsToState = credentials => {
         setUserDetailsState({
@@ -74,7 +78,9 @@ function EditDetails(props) {
                     <DialogTitle>Edit your details</DialogTitle>
                     <DialogContent>
                         <form>
-                            <TextField name='bio' type='text' label='Bio' multiline rows='3' placeholder='A short bio about yourself' className={classes.textField} value={userDetailsState.bio} onChange={onChange} fullWidth />
+                            <TextField name='bio' type='text' label='Bio' multiline rows='3' placeholder='A short bio about yourself' className={classes.textField} value={userDetailsState.bio} onChange={handleChange} fullWidth />
+                            <TextField name='website' type='text' label='Website' multiline rows='3' placeholder='Your personal/professional website' className={classes.textField} value={userDetailsState.website} onChange={handleChange} fullWidth />
+                            <TextField name='location' type='text' label='Location' multiline rows='3' placeholder='Where you are located' className={classes.textField} value={userDetailsState.location} onChange={handleChange} fullWidth />
                         </form>
                     </DialogContent>
                 </Dialog>
