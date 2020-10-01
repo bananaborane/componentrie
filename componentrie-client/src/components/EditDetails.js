@@ -70,6 +70,14 @@ function EditDetails(props) {
                 <IconButton onClick={handleOpen} className={classes.button} >
                     <EditIcon color='primary' />
                 </IconButton>
+                <Dialog open={userDetailsState.open} onClose={handleClose} fullWidth maxWidth='sm'>
+                    <DialogTitle>Edit your details</DialogTitle>
+                    <DialogContent>
+                        <form>
+                            <TextField name='bio' type='text' label='Bio' multiline rows='3' placeholder='A short bio about yourself' className={classes.textField} value={userDetailsState.bio} onChange={onChange} fullWidth />
+                        </form>
+                    </DialogContent>
+                </Dialog>
             </Tooltip>
         </>
     )
