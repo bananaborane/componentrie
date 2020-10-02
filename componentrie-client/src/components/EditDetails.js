@@ -9,7 +9,6 @@ import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import EditIcon from '@material-ui/icons/Edit'
 
@@ -56,6 +55,16 @@ function EditDetails(props) {
     const handleChange = event => {
         setLoginProperties({ ...loginProperties, [event.target.name]: event.target.value })
     }
+
+    const handleSubmit = () => {
+        const userDetails = {
+            bio: userDetailsState.bio,
+            website: userDetailsState.website,
+            location: userDetailsState.location,
+        }
+        props.editUserDetails(userDetails)
+        handleClose();
+    }
     
     const mapUserDetailsToState = credentials => {
         setUserDetailsState({
@@ -83,6 +92,15 @@ function EditDetails(props) {
                             <TextField name='location' type='text' label='Location' multiline rows='3' placeholder='Where you are located' className={classes.textField} value={userDetailsState.location} onChange={handleChange} fullWidth />
                         </form>
                     </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={handleClose} color='primary' >
+                            Cancel
+                        </Button>
+                        <Button onClick={handleSubmit} color='primary' >
+                            Submit
+                        </Button>
+                    </DialogActions>
                 </Dialog>
             </Tooltip>
         </>
