@@ -1,12 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// Redux imports
+import { connect } from 'react-redux'
+
 // MUI imports
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 
-export default function Navbar() {
+function Navbar(props) {
+
+    const { authenticated } = props;
+
     return (
         <AppBar>
             <Toolbar className='nav-container'>
@@ -17,3 +23,10 @@ export default function Navbar() {
         </AppBar>
     )
 }
+
+const mapStateToProps = state => {
+    authenticated: state.user.authenticated
+}
+
+export default connect(mapStateToProps)(Navbar);
+
