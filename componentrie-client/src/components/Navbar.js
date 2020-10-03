@@ -12,13 +12,24 @@ import Button from '@material-ui/core/Button'
 function Navbar(props) {
 
     const { authenticated } = props;
-
+ 
     return (
         <AppBar>
             <Toolbar className='nav-container'>
-                <Button color='inherit' component={Link} to='/login'>Login</Button>
-                <Button color='inherit' component={Link} to='/'>Home</Button>
-                <Button color='inherit' component={Link} to='/signup'>Signup</Button>
+                {authenticated ? (
+                    <>
+                        <Tooltip>
+                            
+                        </Tooltip>
+                    </>
+                ) : (
+                    <>
+                        <Button color='inherit' component={Link} to='/login'>Login</Button>
+                        <Button color='inherit' component={Link} to='/'>Home</Button>
+                        <Button color='inherit' component={Link} to='/signup'>Signup</Button>
+                    </>
+                )}
+
             </Toolbar>
         </AppBar>
     )
