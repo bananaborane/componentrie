@@ -25,7 +25,15 @@ function Navbar(props) {
                 {authenticated ? (
                     <>
                         <MyButton tip='Post a Listing'>
-
+                            <AddIcon color='primary' />
+                        </MyButton>
+                        <Link to='/'>
+                            <MyButton tip='Home'>
+                                <HomeIcon color='primary'/>
+                            </MyButton>
+                        </Link>
+                        <MyButton tip='Notifications'>
+                            <Notifications color='primary' />
                         </MyButton>
                     </>
                 ) : (
