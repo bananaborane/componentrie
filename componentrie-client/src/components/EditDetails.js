@@ -82,30 +82,28 @@ function EditDetails(props) {
 
     return (
         <>
-            <Tooltip title='Edit details' placement='top'>
-                <IconButton onClick={handleOpen} className={classes.button} >
-                    <EditIcon color='primary' />
-                </IconButton>
-                <Dialog open={userDetailsState.open} onClose={handleClose} fullWidth maxWidth='sm'>
-                    <DialogTitle>Edit your details</DialogTitle>
-                    <DialogContent>
-                        <form>
-                            <TextField name='bio' type='text' label='Bio' multiline rows='3' placeholder='A short bio about yourself' className={classes.textField} value={userDetailsState.bio} onChange={handleChange} fullWidth />
-                            <TextField name='website' type='text' label='Website' multiline rows='3' placeholder='Your personal/professional website' className={classes.textField} value={userDetailsState.website} onChange={handleChange} fullWidth />
-                            <TextField name='location' type='text' label='Location' multiline rows='3' placeholder='Where you are located' className={classes.textField} value={userDetailsState.location} onChange={handleChange} fullWidth />
-                        </form>
-                    </DialogContent>
+            <MyButton tip='Edit Details' onClick={handleOpen} btnClassName={classes.button}>
+                <EditIcon color='primary' />
+            </MyButton>
+            <Dialog open={userDetailsState.open} onClose={handleClose} fullWidth maxWidth='sm'>
+                <DialogTitle>Edit your details</DialogTitle>
+                <DialogContent>
+                    <form>
+                        <TextField name='bio' type='text' label='Bio' multiline rows='3' placeholder='A short bio about yourself' className={classes.textField} value={userDetailsState.bio} onChange={handleChange} fullWidth />
+                        <TextField name='website' type='text' label='Website' multiline rows='3' placeholder='Your personal/professional website' className={classes.textField} value={userDetailsState.website} onChange={handleChange} fullWidth />
+                        <TextField name='location' type='text' label='Location' multiline rows='3' placeholder='Where you are located' className={classes.textField} value={userDetailsState.location} onChange={handleChange} fullWidth />
+                    </form>
+                </DialogContent>
 
-                    <DialogActions>
-                        <Button onClick={handleClose} color='primary' >
-                            Cancel
-                        </Button>
-                        <Button onClick={handleSubmit} color='primary' >
-                            Submit
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </Tooltip>
+                <DialogActions>
+                    <Button onClick={handleClose} color='primary' >
+                        Cancel
+                    </Button>
+                    <Button onClick={handleSubmit} color='primary' >
+                        Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }
