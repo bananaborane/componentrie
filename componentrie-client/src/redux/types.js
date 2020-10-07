@@ -13,3 +13,7 @@ export const CLEAR_ERRORS ='CLEAR_ERRORS';
 
 
 // Data reducer types   
+export const SET_LISTINGS = 'SET_LISTINGS';
+export const SET_LISTING = 'SET_LISTING';
+export const WATCH_LISTING = 'WATCH_LISTING';
+export const UNWATCH_LISTING = 'UNWATCH_LISTING';
