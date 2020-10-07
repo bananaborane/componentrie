@@ -1,4 +1,4 @@
-import { SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from '../types'
+import { SET_USER, SET_UNAUTHENTICATED, LOADING_USER, WATCH_LISTING, UNWATCH_LISTING } from '../types'
 
 const initialState = {
     authenticated: false,
@@ -27,6 +27,22 @@ export default function (state = initialState, action){
             return {
                 ...state,
                 loading: true
+            }
+        case WATCH_LISTING:
+            return {
+                ...state,
+                watches: [
+                    ...state.watches,
+                    {
+                        userHandle: state.credentials.handle,
+                        listingId: actions.payload.listingId
+                    }
+                ]
+            }
+        case UNWATCH_LISTING: 
+            return {
+                ...state,
+                watches: state.watches.filter(watch => watch.listingId === action.payload.listingId)
             }
         default:
             return state;

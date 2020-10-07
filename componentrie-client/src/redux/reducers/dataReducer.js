@@ -6,8 +6,8 @@ const initialState = {
     loading: false
 }
 
-export default function(state = initialState, actions){
-    switch(actions.type){
+export default function(state = initialState, action){
+    switch(action.type){
         case LOADING_DATA:
             return {
                 ...state,
@@ -16,11 +16,16 @@ export default function(state = initialState, actions){
         case SET_LISTINGS:
             return {
                 ...state,
-                listings: actions.payload,
+                listings: action.payload,
                 loading: false
             }
         case WATCH_LISTING:
-            return {}
+        case UNWATCH_LISTING:
+            let index = state.listings.findIndex(listing => listing.listingId === action.payload.listingId);
+            state.listings[index] = action.payload
+            return {
+                ...state
+            }
         default:
             return state
     }
