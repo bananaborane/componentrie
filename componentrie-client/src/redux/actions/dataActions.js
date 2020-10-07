@@ -23,7 +23,32 @@ export const getListings = () => dispatch => {
 
 
 // watch a listing
-
+export const watchListing = listingId => dispatch => {
+    axios.get(`/listing/${listingId}/watch`)
+        .then(res => {
+            dispatch({
+                type: WATCH_LISTING,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 
 
 // unwatch a listing
+    export const watchListing = listingId => dispatch => {
+        axios.get(`/listing/${listingId}/unwatch`)
+            .then(res => {
+                dispatch({
+                    type: UNWATCH_LISTING,
+                    payload: res.data
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+
