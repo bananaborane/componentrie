@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton'
 
 function MyButton({ children, onClick, tip, btnClassName, tipClassName }) {
     return (
-        <Tooltip title={tip} className={tipClassName}>
+        <Tooltip title={tip} className={tipClassName} placement='top'>
             <IconButton onClick={onClick} className={btnClassName}>
                 {children}
             </IconButton>
