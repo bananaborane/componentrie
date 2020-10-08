@@ -4,17 +4,12 @@ import axios from 'axios'
 import Listing from '../components/Listing'
 import Profile from '../components/Profile'
 
-export default function home() {
-    const [listings, setListings] = useState([])
+import { connect } from 'react-redux';
+import { getListings } from '../redux/actions/dataActions'
+
+function home(props) {
     useEffect(() => {
-        axios.get('/listings')
-            .then(res => {
-                console.log(res.data)
-                setListings(res.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        props.getListings()
     }, [])
 
     const recentListingsMarkup = listings.length ? (listings.map(listing => {
@@ -33,3 +28,10 @@ export default function home() {
         </Grid>
     )
 }
+
+const mapStateToProps = state => ({
+    data: state.data
+})
+
+
+export default connect(mapStateToProps, { getListings })(home);
