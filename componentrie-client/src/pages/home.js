@@ -8,13 +8,16 @@ import { connect } from 'react-redux';
 import { getListings } from '../redux/actions/dataActions'
 
 function home(props) {
+
+    const { listings, loading } = props.data;
+
     useEffect(() => {
         props.getListings()
     }, [])
 
-    const recentListingsMarkup = listings.length ? (listings.map(listing => {
-    return (<Listing key={listing.listingId} listing={listing} />)
-    })) : (<p>Loading...</p>)
+    const recentListingsMarkup = loading ? (listings.map(listing => {
+        return (<Listing key={listing.listingId} listing={listing} />)
+        })) : (<p>Loading...</p>)
 
 
     return (
