@@ -12,6 +12,10 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 
+// Redux Imports
+import { connect } from 'react-redux';
+import { watchListing, unwatchListing } from'../redux/actions/dataActions
+
 const styles = {
     card: {
         display: 'flex',

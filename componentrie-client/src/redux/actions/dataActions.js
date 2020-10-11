@@ -38,7 +38,7 @@ export const watchListing = listingId => dispatch => {
 
 
 // unwatch a listing
-    export const watchListing = listingId => dispatch => {
+    export const unwatchListing = listingId => dispatch => {
         axios.get(`/listing/${listingId}/unwatch`)
             .then(res => {
                 dispatch({

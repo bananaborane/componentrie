@@ -15,7 +15,7 @@ function home(props) {
         props.getListings()
     }, [])
 
-    const recentListingsMarkup = loading ? (listings.map(listing => {
+    const recentListingsMarkup = !loading ? (listings.map(listing => {
         return (<Listing key={listing.listingId} listing={listing} />)
         })) : (<p>Loading...</p>)
 
