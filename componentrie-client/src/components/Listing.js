@@ -45,4 +45,14 @@ function Listing(props) {
     )
 }
 
-export default withStyles(styles)(Listing)
+
+const mapStateToProps = state => ({
+    user: state.user
+})
+
+const mapActionsToProps = {
+    watchListing,
+    unwatchListing
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Listing))
