@@ -18,7 +18,7 @@ import ChatIcon from '@material-ui/icons/Chat'
 
 // Redux Imports
 import { connect } from 'react-redux';
-import { watchListing, unwatchListing } from'../redux/actions/dataActions
+import { watchListing, unwatchListing } from '../redux/actions/dataActions'
 
 const styles = {
     card: {
@@ -35,6 +35,12 @@ const styles = {
 }
 
 function Listing(props) {
+
+    const watchedListing = () => {
+
+    }
+
+
     const { classes, listing } = props;
     dayjs.extend(relativeTime)
     return (
