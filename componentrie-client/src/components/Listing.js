@@ -37,6 +37,18 @@ const styles = {
 function Listing(props) {
 
     const watchedListing = () => {
+        if (props.user.watches && props.user.watches.find(watch => watch.listingId === props.listing.listingId)) return true
+        else return false;
+    }
+
+    const watchListing = () => {
+        props.watchListing(props.listing.listingId)
+
+    }
+
+
+    const unwatchListing = () => {
+        props.unwatchListing(props.listing.listingId)
 
     }
 
