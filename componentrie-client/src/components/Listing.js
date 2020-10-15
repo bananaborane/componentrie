@@ -52,8 +52,24 @@ function Listing(props) {
 
     }
 
+    const { classes, 
+        listing: { 
+            body, 
+            createdAt, 
+            userImage, 
+            userHandle, 
+            listingId, 
+            watchCount, 
+            inquiryCount }, 
+        user { 
+            authenticated 
+        } 
+    } = props;
 
-    const { classes, listing } = props;
+
+    const watchButton = !authenticated 
+
+
     dayjs.extend(relativeTime)
     return (
         <Card className={classes.card}>
