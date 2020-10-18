@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography'
 
 // MUI Icon Imports
 import ChatIcon from '@material-ui/icons/Chat'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 // Redux Imports
 import { connect } from 'react-redux';
@@ -67,7 +69,15 @@ function Listing(props) {
     } = props;
 
 
-    const watchButton = !authenticated 
+    const watchButton = !authenticated (<MyButton tip='Watch'>
+        <Link to='/login'>
+            <FavoriteBorder color='primary' />
+        </Link>
+    </MyButton>) : (watchedListing() ? (<MyButton tip='Undo watch' onClick={unwatchListing}>
+        <FavoriteIcon color='primary' />
+    </MyButton>) : (<MyButton tip='Watch' onClick={watchListing}>
+        <FavoriteBorder color='primary' />
+    </MyButton>))
 
 
     dayjs.extend(relativeTime)
