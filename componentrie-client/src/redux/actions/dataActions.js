@@ -52,3 +52,7 @@ export const watchListing = listingId => dispatch => {
     }
 
 
+export const deleteListing = listingId => {
+    
+}
+
