@@ -42,7 +42,7 @@ export default function (state = initialState, action){
         case UNWATCH_LISTING: 
             return {
                 ...state,
-                watches: state.watches.filter(watch => watch.listingId === action.payload.listingId)
+                watches: state.watches.filter(watch => watch.listingId !== action.payload.listingId)
             }
         default:
             return state;

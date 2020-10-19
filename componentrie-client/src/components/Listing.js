@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 import MyButton from '../util/MyButton'
+import DeleteListing from '../components/DeleteListing'
 
 // MUI Imports
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -64,7 +65,10 @@ function Listing(props) {
             watchCount, 
             inquiryCount }, 
         user { 
-            authenticated 
+            authenticated,
+            credentials: {
+                handle
+            } 
         } 
     } = props;
 
@@ -79,6 +83,10 @@ function Listing(props) {
         <FavoriteBorder color='primary' />
     </MyButton>))
 
+    const deleteButton = authenticated && userHandle === handle ? (
+        <DeleteListing listingId={listingId} />
+    ) : null
+
 
     dayjs.extend(relativeTime)
     return (
@@ -86,6 +94,7 @@ function Listing(props) {
             <CardMedia image={listing.userImage} title='Profile image' className={classes.image}/>
             <CardContent className={classes.content}>
                 <Typography variant="h5" component={Link} to={`/users/${listing.userHandle}`} color='primary'>{listing.userHandle}</Typography>
+                {deleteButton}
                 <Typography variant="body2" color='textSecondary'>{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1">{listing.body}</Typography>
                 {watchButton}
