@@ -1,4 +1,4 @@
-import { SET_LISTINGS, LOADING_DATA, WATCH_LISTING, UNWATCH_LISTING } from '../types';
+import { SET_LISTINGS, LOADING_DATA, WATCH_LISTING, UNWATCH_LISTING, DELETE_LISTING } from '../types';
 import axios from 'axios';
 
 
@@ -53,6 +53,12 @@ export const watchListing = listingId => dispatch => {
 
 
 export const deleteListing = listingId => {
-    
+    axios.delete(`/listing/${listingId}`)
+        .then(() => {
+            dispatch({ type: DELETE_LISTING, payload: listingId })
+        })
+        .catch(err => {
+            console.log(err)
+        })
 }
 
