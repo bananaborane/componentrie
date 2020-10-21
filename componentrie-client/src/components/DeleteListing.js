@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import MyButton from '../util/MyButton'
 
@@ -30,10 +30,16 @@ const styles = {
 function DeleteListing() {
     const { classes } = props;
 
-    const handleOpen;
+
+
+    const handleOpen = () => {
+
+    }
+
     return (
         <>
-            <MyButton tip='Delete Listing' onClick={handleOpen} />
+            <MyButton tip='Delete Listing' onClick={handleOpen} btnClassName={classes.delete} />
+            <DeleteOutline color='secondary' />
         </>
     )
 }
