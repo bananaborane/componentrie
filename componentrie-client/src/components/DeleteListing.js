@@ -23,12 +23,21 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 import { connect } from 'react-redux';
 import { deleteListing } from '../redux/actions/dataActions'
 
+const styles = {
+    
+}
+
 function DeleteListing() {
+    const { classes } = props;
+
+    const handleOpen;
     return (
-        <div>
-            
-        </div>
+        <>
+            <MyButton tip='Delete Listing' onClick={handleOpen} />
+        </>
     )
 }
 
-export default DeleteListing
+
+
+export default connect(mapStateToProps, { deleteListing })(withStyles(styles)(DeleteListing));

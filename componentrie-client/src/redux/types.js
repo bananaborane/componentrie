@@ -18,3 +18,4 @@ export const SET_LISTINGS = 'SET_LISTINGS';
 export const SET_LISTING = 'SET_LISTING';
 export const WATCH_LISTING = 'WATCH_LISTING';
 export const UNWATCH_LISTING = 'UNWATCH_LISTING';
+export const DELETE_LISTING = 'DELETE_LISTING';
