@@ -30,10 +30,15 @@ const styles = {
 function DeleteListing() {
     const { classes } = props;
 
-
+    const [deleteListingState, setDeleteListingState] = useState({
+        open: false
+    })
 
     const handleOpen = () => {
-
+        setDeleteListing({
+            ...deleteLIstingState,
+            open: true
+        })
     }
 
     return (
