@@ -62,8 +62,16 @@ function DeleteListing() {
             <DeleteOutline color='secondary' />
             <Dialog open={deleteListingState.open} btnClassName={classes.deleteButton} fullWidth maxWidth="sm" >
                 <DialogTitle>
-                    
+                    Are you sure you want to delete this listing?
                 </DialogTitle>
+                <DialogActions>
+                    <Button onClick={handleClose} color='primary'>
+                        Cancel
+                    </Button>
+                    <Button onClick={deleteListing} color='secondary'>
+                        Delete
+                    </Button>
+                </DialogActions>
             </Dialog>
         </>
     )
