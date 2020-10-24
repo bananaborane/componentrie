@@ -41,10 +41,30 @@ function DeleteListing() {
         })
     }
 
+    const handleClose = () => {
+        setDeleteListing({
+            ...deleteLIstingState,
+            open: false
+        })
+    }
+    
+    const handleDeleteListing = () => {
+        props.deleteListing(props.listingId)
+        setDeleteListing({
+            ...deleteLIstingState,
+            open: false
+        })
+    }
+
     return (
         <>
             <MyButton tip='Delete Listing' onClick={handleOpen} btnClassName={classes.delete} />
             <DeleteOutline color='secondary' />
+            <Dialog open={deleteListingState.open} btnClassName={classes.deleteButton} fullWidth maxWidth="sm" >
+                <DialogTitle>
+                    
+                </DialogTitle>
+            </Dialog>
         </>
     )
 }
