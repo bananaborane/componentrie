@@ -22,6 +22,13 @@ export const getListings = () => dispatch => {
 }
 
 
+// Post a listing
+
+export const postListing = newListing => (dispatch) => {
+    dispatch({ type: LOADING_UI });
+}
+
+
 // watch a listing
 export const watchListing = listingId => dispatch => {
     axios.get(`/listing/${listingId}/watch`)

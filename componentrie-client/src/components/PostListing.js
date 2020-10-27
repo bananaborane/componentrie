@@ -16,6 +16,10 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { connect } from 'react-redux'
 import { postListing } from '../redux/actions/userActions'
 
+const styles = {
+
+}
+
 function PostListing() {
     return (
         <div>
@@ -24,4 +28,9 @@ function PostListing() {
     )
 }
 
-export default PostListing
+const mapStateToProps = state => {
+    UI: state.UI
+}
+
+
+export default connect((mapStateToProps, { postListing }))(withStyles(styles)(PostListing))
