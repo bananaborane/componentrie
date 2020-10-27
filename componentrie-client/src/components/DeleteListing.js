@@ -24,7 +24,11 @@ import { connect } from 'react-redux';
 import { deleteListing } from '../redux/actions/dataActions'
 
 const styles = {
-    
+    deleteButton: {
+        position: 'absolute',
+        left: '90%',
+        top: '10%'
+    }
 }
 
 function DeleteListing() {

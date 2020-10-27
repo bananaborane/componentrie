@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import MyButton from '../util/MyButton'
+import PostListing from './PostListing'
 
 // Redux imports
 import { connect } from 'react-redux'
 
 // MUI imports
-import AppBar from '@material-ui/core/AppBar'
+
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 
@@ -24,9 +25,7 @@ function Navbar(props) {
             <Toolbar className='nav-container'>
                 {authenticated ? (
                     <>
-                        <MyButton tip='Post a Listing'>
-                            <AddIcon />
-                        </MyButton>
+                        <PostListing />
                         <Link to='/'>
                             <MyButton tip='Home'>
                                 <HomeIcon/>
