@@ -1,4 +1,4 @@
-import { SET_LISTINGS, LOADING_DATA, WATCH_LISTING, UNWATCH_LISTING, DELETE_LISTING } from '../types';
+import { SET_LISTINGS, LOADING_DATA, WATCH_LISTING, UNWATCH_LISTING, DELETE_LISTING, SET_ERRORS, CLEAR_ERRORS, POST_LISTING } from '../types';
 import axios from 'axios';
 
 
@@ -26,6 +26,20 @@ export const getListings = () => dispatch => {
 
 export const postListing = newListing => (dispatch) => {
     dispatch({ type: LOADING_UI });
+    axios.post('/listing', newListing)
+        .then(res => {
+            dispatch({
+                type: POST_LISTING,
+                payload: res.data
+            })
+            dispatch({ type: CLEAR_ERRORS })
+        })
+        .catch(err => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: err.response.data
+            })
+        })
 }
 
 
