@@ -21,6 +21,21 @@ const styles = {
 }
 
 function PostListing() {
+
+    const [postListingState, setPostListingState] = useState({
+        open: false,
+        body: '',
+        errors: {}
+    })
+
+    const handleOpen = () => {
+        setPostListingState({ ...postListingState, open: true })
+    }
+
+    const handleClose = () => {
+        setPostListingState({ ...postListingState, open: false })
+    }
+
     return (
         <div>
             

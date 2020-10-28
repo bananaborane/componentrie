@@ -1,4 +1,4 @@
-import { SET_LISTINGS, WATCH_LISTING, UNWATCH_LISTING, LOADING_DATA, DELETE_LISTING } from '../types';
+import { SET_LISTINGS, WATCH_LISTING, UNWATCH_LISTING, LOADING_DATA, DELETE_LISTING, POST_LISTING } from '../types';
 
 const initialState = {
     listings: [],
@@ -31,6 +31,14 @@ export default function(state = initialState, action){
             state.listings.splice(index, 1);
             return {
                 ...state
+            }
+        case POST_LISTING:
+            return {
+                ...state,
+                listings: [
+                    action.payload,
+                    ...state.listings
+                ]
             }
         default:
             return state
