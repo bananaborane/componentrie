@@ -37,9 +37,15 @@ function PostListing() {
     }
 
     return (
-        <div>
-            
-        </div>
+
+        const { errors } = postListingState;
+        const { classes: UI: { loading } } = propsp;
+
+        <>
+            <MyButton onClick={handleOpen} tip='Post a Listing'>
+                    
+            </MyButton>   
+        </>
     )
 }
 
