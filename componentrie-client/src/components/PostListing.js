@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import EditIcon from '@material-ui/icons/Edit'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import AddIcon from '@material-ui/icons/Add';
 
 // Redux imports
 import { connect } from 'react-redux'
@@ -43,8 +44,11 @@ function PostListing() {
 
         <>
             <MyButton onClick={handleOpen} tip='Post a Listing'>
-                    
-            </MyButton>   
+                    <AddIcon />
+            </MyButton>  
+            <Dialog open={postListingState.open} onClose={handleClose} fullWidth maxWidth='sm' >
+                
+            </Dialog> 
         </>
     )
 }
