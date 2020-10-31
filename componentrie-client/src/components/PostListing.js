@@ -12,13 +12,16 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import EditIcon from '@material-ui/icons/Edit'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 
 // Redux imports
 import { connect } from 'react-redux'
 import { postListing } from '../redux/actions/userActions'
 
 const styles = {
+    closeButton: {
 
+    }
 }
 
 function PostListing() {
@@ -36,6 +39,9 @@ function PostListing() {
     const handleClose = () => {
         setPostListingState({ ...postListingState, open: false })
     }
+    const handleSubmit = () => {
+        
+    }
 
     return (
 
@@ -47,7 +53,17 @@ function PostListing() {
                     <AddIcon />
             </MyButton>  
             <Dialog open={postListingState.open} onClose={handleClose} fullWidth maxWidth='sm' >
-                
+                <MyButton tip='Close' onClick={handleClose} tipClassName={classes.closeButton}>
+                    <CloseIcon />
+                </MyButton>
+                <DialogTitle>
+                    Post a new Listing
+                </DialogTitle>
+                <DialogContent>
+                    <form onSubmit={handleSubmit}>
+
+                    </form>
+                </DialogContent>
             </Dialog> 
         </>
     )
