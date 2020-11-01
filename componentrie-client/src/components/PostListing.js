@@ -18,11 +18,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'react-redux'
 import { postListing } from '../redux/actions/userActions'
 
-const styles = {
-    closeButton: {
-
-    }
-}
+const styles = theme => ({
+    ...theme
+})
 
 function PostListing() {
 
@@ -61,7 +59,10 @@ function PostListing() {
                 </DialogTitle>
                 <DialogContent>
                     <form onSubmit={handleSubmit}>
-
+                        <TextField name='body' type='text' label='Listing' multiline rows='3' placeholder='Post a listing for everyone to see' error={errors.body ? true : false} helperText={errors.body} className={classes.textField} onChange={handleChange} fullWidth />
+                        <Button type='submit' variant='contained' color='primary' className={classes.submitButton} disabled={loading}>
+                            
+                        </Button>
                     </form>
                 </DialogContent>
             </Dialog> 
