@@ -62,6 +62,15 @@ function PostListing() {
         props.postListing({ body: postListingState.body })
     }
     
+    useEffect(() => {
+        if (props.UI.errors){
+            setPostListingState({
+                ...postListingState,
+                errors: props.UI.errors
+            })
+        }
+    }, [props.UI])
+    
     const { errors } = postListingState;
     const { classes: UI: { loading } } = props;
     
