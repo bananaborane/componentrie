@@ -25,6 +25,11 @@ const styles = theme => ({
     },
     progessSpinner: {
         position: 'absolute'
+    },
+    closeButton: {
+        position: 'absolute',
+        left: '90%',
+        top: '10%'
     }
 })
 
@@ -43,14 +48,25 @@ function PostListing() {
     const handleClose = () => {
         setPostListingState({ ...postListingState, open: false })
     }
-    const handleSubmit = () => {
-        
-    }
 
+    
+    const handleChange = event => {
+        setPostListingState({
+            ...postListingState,
+            [event.target.name]: event.target.value
+        })
+    }
+    
+    const handleSubmit = event => {
+        event.preventDefault();
+        props.postListing({ body: postListingState.body })
+    }
+    
+    const { errors } = postListingState;
+    const { classes: UI: { loading } } = props;
+    
     return (
 
-        const { errors } = postListingState;
-        const { classes: UI: { loading } } = propsp;
 
         <>
             <MyButton onClick={handleOpen} tip='Post a Listing'>
