@@ -21,15 +21,17 @@ import { postListing } from '../redux/actions/userActions'
 const styles = theme => ({
     ...theme,
     submitButton: {
-        position: 'relative'
+        position: 'relative',
+        float: 'right',
+        marginTop: 10
     },
     progessSpinner: {
         position: 'absolute'
     },
     closeButton: {
         position: 'absolute',
-        left: '90%',
-        top: '10%'
+        left: '91%',
+        top: '6%'
     }
 })
 
@@ -46,7 +48,7 @@ function PostListing() {
     }
 
     const handleClose = () => {
-        setPostListingState({ ...postListingState, open: false })
+        setPostListingState({ ...postListingState, open: false, errors: {} })
     }
 
     
@@ -68,6 +70,13 @@ function PostListing() {
                 ...postListingState,
                 errors: props.UI.errors
             })
+        }
+        if (!props.UI.errors && !props.UI.loading){
+            setPostListingState({
+                ...postListingState,
+                body: ''
+            })
+            handleClose();
         }
     }, [props.UI])
     
