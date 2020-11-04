@@ -22,6 +22,14 @@ export const getListings = () => dispatch => {
 }
 
 
+export const getListing = (listingId) => dispatch => {
+    dispatch({ type: LOADING_UI })
+    axios.get(`/listing/${listingId}`)
+        .then()
+        .catch()
+}
+
+
 // Post a listing
 
 export const postListing = newListing => (dispatch) => {
