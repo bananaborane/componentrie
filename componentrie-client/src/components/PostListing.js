@@ -16,7 +16,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // Redux imports
 import { connect } from 'react-redux'
-import { postListing } from '../redux/actions/userActions'
+import { postListing, clearErrors } from '../redux/actions/userActions'
 
 const styles = theme => ({
     ...theme,
@@ -49,6 +49,7 @@ function PostListing() {
 
     const handleClose = () => {
         setPostListingState({ ...postListingState, open: false, errors: {} })
+        props.clearErrors()
     }
 
     
@@ -74,9 +75,10 @@ function PostListing() {
         if (!props.UI.errors && !props.UI.loading){
             setPostListingState({
                 ...postListingState,
-                body: ''
+                body: '',
+                open: false,
+                errors: {}
             })
-            handleClose();
         }
     }, [props.UI])
     
@@ -116,4 +118,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect((mapStateToProps, { postListing }))(withStyles(styles)(PostListing))
+export default connect((mapStateToProps, { postListing, clearErrors }))(withStyles(styles)(PostListing))
