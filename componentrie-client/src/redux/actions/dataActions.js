@@ -1,4 +1,4 @@
-import { SET_LISTINGS, LOADING_DATA, WATCH_LISTING, UNWATCH_LISTING, DELETE_LISTING, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, POST_LISTING } from '../types';
+import { SET_LISTINGS, LOADING_DATA, WATCH_LISTING, UNWATCH_LISTING, DELETE_LISTING, SET_ERRORS, CLEAR_ERRORS, LOADING_UI, POST_LISTING, SET_LISTING, STOP_LOADING_UI } from '../types';
 import axios from 'axios';
 
 
@@ -25,8 +25,14 @@ export const getListings = () => dispatch => {
 export const getListing = (listingId) => dispatch => {
     dispatch({ type: LOADING_UI })
     axios.get(`/listing/${listingId}`)
-        .then()
-        .catch()
+        .then(res => {
+            dispatch({
+                type: SET_LISTING,
+                payload: res.data
+            })
+            dispatch({ type: STOP_LOADING_UI })
+        })
+        .catch(err => console.log(err))
 }
 
 
