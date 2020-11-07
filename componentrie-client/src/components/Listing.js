@@ -105,6 +105,7 @@ function Listing(props) {
                     <ChatIcon color='primary' />
                 </MyButton>
                 <span>{inquiryCount} inquiries</span>
+                <ListingDialog listingId={listingId} userHandle={userHandle} />
             </CardContent>
         </Card>
     )
