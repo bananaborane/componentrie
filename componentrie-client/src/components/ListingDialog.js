@@ -33,5 +33,17 @@ function ListingDialog() {
     )
 }
 
-export default ListingDialog
+
+const mapStateToProps = state => ({
+    listing: state.data.listing,
+    UI: listing.UI
+})
+
+const mapActionsToProps = {
+    getListing
+}
+
+
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(ListingDialog))
 
