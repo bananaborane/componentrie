@@ -26,6 +26,19 @@ const styles = {
 }
 
 function ListingDialog() {
+
+    const [listingDialogState, setListingDialogState] = useState({
+        open: false
+    })
+
+    const handleOpen = () => {
+        
+    }
+
+    const handleClose = () => {
+
+    }
+
     return (
         <div>
             
