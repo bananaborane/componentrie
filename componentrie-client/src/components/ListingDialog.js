@@ -25,19 +25,28 @@ const styles = {
 
 }
 
-function ListingDialog() {
+function ListingDialog(props) {
 
     const [listingDialogState, setListingDialogState] = useState({
         open: false
     })
 
     const handleOpen = () => {
-        
+        setListingDialogState({
+            ...listingDialogState,
+            open: true
+        })
+        props.getListing(props.listingId)
     }
-
+    
     const handleClose = () => {
-
+        setListingDialogState({
+            ...listingDialogState,
+            open: false
+        })
     }
+
+    const { classes, listing:  { listingId, body, createdAt, watchCount, inquiryCount, userImage, userHandle }, UI: { loading } } = props;
 
     return (
         <div>
