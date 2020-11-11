@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography'
 
 // Icon Imports
 import CloseIcon from '@material-ui/icons/Close';
+import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 // Redux Imports
 import { connect } from 'react-redux'
@@ -51,7 +52,12 @@ function ListingDialog(props) {
     return (
         <>
             <MyButton onClick={handleOpen} tip='Expand listing' tipClassName={classes.expandButton}>
-                
+               <UnfoldMore color='primary' />
+               <Dialog open={postListingState.open} onClose={handleClose} fullWidth maxWidth='sm' >
+                <MyButton tip='Close' onClick={handleClose} tipClassName={classes.closeButton}>
+                    <CloseIcon />
+                </MyButton>
+               </Dialog>
             </MyButton>
         </>
     )
