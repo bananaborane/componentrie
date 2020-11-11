@@ -49,9 +49,11 @@ function ListingDialog(props) {
     const { classes, listing:  { listingId, body, createdAt, watchCount, inquiryCount, userImage, userHandle }, UI: { loading } } = props;
 
     return (
-        <div>
-            
-        </div>
+        <>
+            <MyButton onClick={handleOpen} tip='Expand listing' tipClassName={classes.expandButton}>
+                
+            </MyButton>
+        </>
     )
 }
 
