@@ -49,6 +49,8 @@ function ListingDialog(props) {
 
     const { classes, listing:  { listingId, body, createdAt, watchCount, inquiryCount, userImage, userHandle }, UI: { loading } } = props;
 
+    const dialogMarkup = loading ? (<CircularProgress></CircularProgress>) : (<CircularProgress></CircularProgress>)
+
     return (
         <>
             <MyButton onClick={handleOpen} tip='Expand listing' tipClassName={classes.expandButton}>
@@ -57,6 +59,9 @@ function ListingDialog(props) {
                 <MyButton tip='Close' onClick={handleClose} tipClassName={classes.closeButton}>
                     <CloseIcon />
                 </MyButton>
+                <DialogContent className={classes.DialogContent}>
+                    { dialogMarkup }
+                </DialogContent>
                </Dialog>
             </MyButton>
         </>
