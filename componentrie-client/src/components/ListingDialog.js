@@ -21,10 +21,13 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import { connect } from 'react-redux'
 import { getListing } from '../redux/actions/dataActions'
 
-const styles = {
-
-
-}
+const styles = theme => ({
+    ...theme,
+    invisibleSeparator: {
+        border: 'none',
+        margin: 4
+    }
+})
 
 function ListingDialog(props) {
 
@@ -55,8 +58,13 @@ function ListingDialog(props) {
         </Grid>
         <Grid item sm={7}>
             <Typography component={Link} color='primary' variant='h5' to={`/users/${userHandle}`}>
-
+                @{userHandle}
             </Typography>
+            <hr className={classes.invisibleSeparator} />
+            <Typography variant='body2' color='textSecondary'>
+                {dayjs(createdAt).format('h:mm a, MMM DD YYYY')}
+            </Typography>
+            <hr className={classes.invisibleSeparator} />
         </Grid>
     </Grid>)
 
