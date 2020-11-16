@@ -49,7 +49,16 @@ function ListingDialog(props) {
 
     const { classes, listing:  { listingId, body, createdAt, watchCount, inquiryCount, userImage, userHandle }, UI: { loading } } = props;
 
-    const dialogMarkup = loading ? (<CircularProgress></CircularProgress>) : (<CircularProgress></CircularProgress>)
+    const dialogMarkup = loading ? (<CircularProgress size={200}></CircularProgress>) : (<Grid container spacing={16}>
+        <Grid item sm={5}>
+            <img src={userImage} alt="Profile" className={classes.profileImage} />
+        </Grid>
+        <Grid item sm={7}>
+            <Typography component={Link} color='primary' variant='h5' to={`/users/${userHandle}`}>
+
+            </Typography>
+        </Grid>
+    </Grid>)
 
     return (
         <>
