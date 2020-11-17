@@ -1,4 +1,4 @@
-import { SET_LISTINGS, WATCH_LISTING, UNWATCH_LISTING, LOADING_DATA, DELETE_LISTING, POST_LISTING } from '../types';
+import { SET_LISTINGS, WATCH_LISTING, UNWATCH_LISTING, LOADING_DATA, DELETE_LISTING, POST_LISTING, SET_LISTING } from '../types';
 
 const initialState = {
     listings: [],
@@ -19,8 +19,13 @@ export default function(state = initialState, action){
                 listings: action.payload,
                 loading: false
             }
+        case SET_LISTING:
+            return {
+                ...state,
+                listing: action.payload
+            }
         case WATCH_LISTING:
-        case UNWATCH_LISTING:
+        case UNWATCH_LISTING: 
             let index = state.listings.findIndex(listing => listing.listingId === action.payload.listingId);
             state.listings[index] = action.payload
             return {

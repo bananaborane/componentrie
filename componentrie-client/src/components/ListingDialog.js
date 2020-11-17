@@ -65,6 +65,9 @@ function ListingDialog(props) {
                 {dayjs(createdAt).format('h:mm a, MMM DD YYYY')}
             </Typography>
             <hr className={classes.invisibleSeparator} />
+            <Typography variant='body1'>
+                {body}
+            </Typography>
         </Grid>
     </Grid>)
 
