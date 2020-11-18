@@ -35,6 +35,14 @@ const styles = theme => ({
     },
     dialogContent: {
         padding: 20
+    },
+    closeButton: {
+        position: 'absolute',
+        left: '90%'
+    },
+    expandButton: {
+        position: 'absolute',
+        left: '90%'
     }
 })
 
@@ -88,7 +96,7 @@ function ListingDialog(props) {
                 <MyButton tip='Close' onClick={handleClose} tipClassName={classes.closeButton}>
                     <CloseIcon />
                 </MyButton>
-                <DialogContent className={classes.DialogContent}>
+                <DialogContent className={classes.dialogContent}>
                     { dialogMarkup }
                 </DialogContent>
                </Dialog>
