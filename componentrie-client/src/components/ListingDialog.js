@@ -43,6 +43,9 @@ const styles = theme => ({
     expandButton: {
         position: 'absolute',
         left: '90%'
+    },
+    spinnerDiv: {
+        textAlign: 'center'
     }
 })
 
@@ -69,7 +72,9 @@ function ListingDialog(props) {
 
     const { classes, listing:  { listingId, body, createdAt, watchCount, inquiryCount, userImage, userHandle }, UI: { loading } } = props;
 
-    const dialogMarkup = loading ? (<CircularProgress size={200}></CircularProgress>) : (<Grid container spacing={16}>
+    const dialogMarkup = loading ? (<div className={classes.spinnerDiv}>
+        <CircularProgress size={200} thickness={2} />
+    </div>) : (<Grid container spacing={16}>
         <Grid item sm={5}>
             <img src={userImage} alt="Profile" className={classes.profileImage} />
         </Grid>
