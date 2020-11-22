@@ -45,7 +45,9 @@ const styles = theme => ({
         left: '90%'
     },
     spinnerDiv: {
-        textAlign: 'center'
+        textAlign: 'center',
+        marginTop: 50,
+        marginBottom: 50
     }
 })
 
