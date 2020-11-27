@@ -9,6 +9,8 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 // Redux Imports
 import { connect } from 'react-redux'
+import { watchListing, unwatchListing } from '../redux/actions/dataActions'
+
 
 
 function LikeButton() {
@@ -22,8 +24,12 @@ function LikeButton() {
     </MyButton>)
 
     return (
-        return LikeButton;
+        likeButton
     )
 }
 
-export default LikeButton
+const mapStateToProps = state => ({
+    
+})
+
+export default connect(mapStateToProps, mapActionsToProps)(LikeButton)

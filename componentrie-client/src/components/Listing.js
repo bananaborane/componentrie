@@ -22,7 +22,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 // Redux Imports
 import { connect } from 'react-redux';
-import { watchListing, unwatchListing } from '../redux/actions/dataActions'
+
 
 const styles = {
     card: {
