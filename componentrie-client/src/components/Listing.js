@@ -22,6 +22,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 // Redux Imports
 import { connect } from 'react-redux';
+import WatchButton from './WatchButton'
 
 
 const styles = {
@@ -41,21 +42,7 @@ const styles = {
 
 function Listing(props) {
 
-    const watchedListing = () => {
-        if (props.user.watches && props.user.watches.find(watch => watch.listingId === props.listing.listingId)) return true
-        else return false;
-    }
 
-    const watchListing = () => {
-        props.watchListing(props.listing.listingId)
-
-    }
-
-
-    const unwatchListing = () => {
-        props.unwatchListing(props.listing.listingId)
-
-    }
 
     const { classes, 
         listing: { 
@@ -99,7 +86,7 @@ function Listing(props) {
                 {deleteButton}
                 <Typography variant="body2" color='textSecondary'>{dayjs(createdAt).fromNow()}</Typography>
                 <Typography variant="body1">{listing.body}</Typography>
-                {watchButton}
+                <WatchButton listingId={listingId} />
                 <span>{watchCount} watchers</span>
                 <MyButton tip='comments'>
                     <ChatIcon color='primary' />

@@ -13,7 +13,23 @@ import { watchListing, unwatchListing } from '../redux/actions/dataActions'
 
 
 
-function WatchButton() {
+function WatchButton(props) {
+
+    const watchedListing = () => {
+        if (props.user.watches && props.user.watches.find(watch => watch.listingId === props.listing.listingId)) return true
+        else return false;
+    }
+
+    const watchListing = () => {
+        props.watchListing(props.listing.listingId)
+
+    }
+
+
+    const unwatchListing = () => {
+        props.unwatchListing(props.listing.listingId)
+
+    }
 
     const watchButton = !authenticated ? (<MyButton tip="Watch">
         <Link to="/login">
