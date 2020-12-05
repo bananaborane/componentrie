@@ -12,6 +12,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import WatchButton from '../components/WatchButton'
 
 // Icon Imports
 import CloseIcon from '@material-ui/icons/Close';
@@ -92,6 +93,7 @@ function ListingDialog(props) {
             <Typography variant='body1'>
                 {body}
             </Typography>
+            <WatchButton listingId={listingId} />
         </Grid>
     </Grid>)
 

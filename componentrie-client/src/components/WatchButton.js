@@ -33,11 +33,11 @@ function WatchButton(props) {
 
     const { authenticated } = props.user;
 
-    const watchButton = !authenticated ? (<MyButton tip="Watch">
-        <Link to="/login">
+    const watchButton = !authenticated ? (<Link to="/login">
+        <MyButton tip="Watch">
             <FavoriteBorder color='primary' />
-        </Link>
-    </MyButton>) : watchListing() ? (
+        </MyButton>
+    </Link>) : watchListing() ? (
         <MyButton tip="Undo watch" onClick={props.unwatchListing}>
             <FavoriteIcon color='primary' />
         </MyButton>
